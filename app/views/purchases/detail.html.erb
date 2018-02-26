@@ -1,0 +1,33 @@
+<div class="page-header">
+  <h2>購入内容詳細</h2>
+</div>
+
+<h4>購入の詳細は以下のとおりとなります。</h4>
+
+<div class="container">
+  <div class="col-md-6">
+    プロジェクト名称： <%= @project.project_name %>
+    </br>
+    メーカー： <%= @project.maker %>
+    </br>
+    対象商品： <%= @project.product %>
+    </br>
+    値段： <%= number_with_delimiter(@project.amount_of_money, delimiter:",") %>
+    </br>
+    <% @number_of_orders.each do |o| %>
+      購入数： <%= o.number_of_orders %>
+    <% end %>
+    </br>
+    </br>
+    </br>
+    </br>
+  </div>
+  <div class="col-md-6">
+    <% if @user.exists? %>
+      <%= link_to '購入内容確認画面へ進む', project_purchases_confirm_path(@project), class: 'btn btn-info btn-lg btn-block' %></br>
+    <% else %>
+      会員情報が登録されていないため、購入手続きはできません。</br>
+      マイページより、会員情報を登録してください。
+    <% end %>
+  </div>
+</div>

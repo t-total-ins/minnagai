@@ -1,0 +1,172 @@
+<div class="page-header">
+  <h1>プロジェクト作成</h1>
+</div>
+
+<%= form_for(@project, url:{controller:'projects', action:'create'}, class:'form-horizontal', role: 'form') do |f| %>
+  <% if @project.errors.any? %>
+    <div class="alert alert-danger">
+      <ul>
+      <% @project.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :project_category %></br>
+    <%= f.collection_select :project_category, @project_category, :description,:description, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :project_name %>
+    <%= f.text_field :project_name, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :maker %>
+    <%= f.text_field :maker, class: 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= f.label :product %>
+    <%= f.text_field :product, class: 'form-control' %>
+  </div>
+
+<p><strong>画像登録</strong></p>
+<p>※ファイルサイズは、5MB以下。ファイルの種類は、jpg/jpeg/gif/png形式のみ登録可能。</p></br>
+
+  <div class="form-group">
+    <%= f.label :image1 %>
+    <p>(プロジェクトの一覧画面で表示されるメイン画像です)</p>
+    <%= f.file_field :image1 %>
+    <%= f.hidden_field :image1_cache %>
+  </div>
+
+  <% if @project.image1? %>
+    <div class="thumbnail">
+      <%= image_tag @project.image1.url %>
+    </div>
+  <% end %>
+  <div class="check-box">
+    <label>
+      <%= f.check_box :remove_image1 %>
+      登録画像1を削除する
+    </label>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :image2 %>
+    <%= f.file_field :image2 %>
+    <%= f.hidden_field :image2_cache %>
+  </div>
+  <% if @project.image2? %>
+    <div class="thumbnail">
+      <%= image_tag @project.image2.url %>
+    </div>
+  <% end %>  
+  <div class="check-box">
+    <label>
+      <%= f.check_box :remove_image2 %>
+      登録画像2を削除する
+    </label>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :image3 %>
+    <%= f.file_field :image3 %>
+    <%= f.hidden_field :image3_cache %>
+  </div>
+  <% if @project.image3? %>
+    <div class="thumbnail">
+      <%= image_tag @project.image3.url %>
+    </div>
+  <% end %>
+  <div class="check-box">
+    <label>
+      <%= f.check_box :remove_image3 %>
+      登録画像3を削除する
+    </label>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :image4 %>
+    <%= f.file_field :image4 %>
+    <%= f.hidden_field :image4_cache %>
+  </div>
+  <% if @project.image4? %>
+    <div class="thumbnail">
+      <%= image_tag @project.image4.url %>
+    </div>
+  <% end %>
+  <div class="check-box">
+    <label>
+      <%= f.check_box :remove_image4 %>
+      登録画像4を削除する
+    </label>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :image5 %>
+    <%= f.file_field :image5 %>
+    <%= f.hidden_field :image5_cache %>
+  </div>
+  <% if @project.image5? %>
+    <div class="thumbnail">
+      <%= image_tag @project.image5.url %>
+    </div>
+  <% end %>
+  <div class="check-box">
+    <label>
+      <%= f.check_box :remove_image5 %>
+      登録画像5を削除する
+    </label>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :attraction %></br>
+    <%= f.text_area :attraction, {cols: 70, rows: 10 } %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :reason %></br>
+    <%= f.text_area :reason, {cols: 70, rows: 10 } %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :option %></br>
+    <%= f.text_area :option, {cols: 70, rows: 10 } %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :amount_of_money %>
+    <%= f.number_field :amount_of_money, class: 'form-control' %>
+  </div>
+<%
+=begin
+%>
+  <div class="form-group">
+    <%= f.label :way_of_purchase %></br>
+    <label><%= f.radio_button :way_of_purchase, '自宅配送' %>自宅へ配送</label>
+    <label><%= f.radio_button :way_of_purchase, '店頭受取' %>お店で受け取り</label>
+  </div>
+  <div class="form-group">
+    <%= f.label :way_of_payment %></br>
+    <label><%= f.radio_button :way_of_payment, '一括払い' %>一括払い</label>
+    <label><%= f.radio_button :way_of_payment, '分割払い' %>分割払い</label>
+  </div>
+<%
+=end
+%>
+  <div class="form-group">
+   <%= f.hidden_field :project_from, :value => Time.now.strftime("%Y/%m/%d %H:%M:%S") %>
+   <%= f.hidden_field :project_to, :value => (Time.now + 60 * 60 * 24 * 14).strftime("%Y/%m/%d %H:%M:%S") %>
+   <%= f.hidden_field :account_id, :value => @account.id %>
+  </div>
+
+<p>※一度プロジェクトを作成すると、内容を変更することはできません。</p>
+<p>プロジェクトに追記することはできますが、ご注意ください。</p>
+
+  <div class="form-group">
+    <%= f.submit 'プロジェクトを作成する', class: 'btn btn-info', data: {confirm: '作成してよろしいですか?', disable_with: '作成中・・・'} %>
+  </div>
+<% end %>

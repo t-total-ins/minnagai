@@ -1,0 +1,30 @@
+<div class="list-group">
+  <% project.each do |project| %>
+    <%= link_to(project, class: 'list-group-item') do %>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="thumbnail">
+          <%= image_tag project.image1 %>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <h4 class="list-group-item-heading">
+          <strong><%= project.project_name %></strong>
+        </h4>
+        <p class="list-group-item-text">
+          会社　：　<%= project.maker %>
+        </p>
+        <p class="list-group-item-text">
+          商品/サービス　：　<%= project.product %>
+        </p>
+        </br>
+        <p class="list-group-item-text">
+          購入希望価格(税込)　：　<strong><%= number_with_delimiter(project.amount_of_money, delimiter:",") %></strong>　円
+        </p>
+        </br>
+      </div><%#col-md-8%>
+    </div><%#row%>
+    <% end %><%#link%>
+  <% end %><%#project.each%>
+  <%= paginate project %>
+</div><%#listgroup%>

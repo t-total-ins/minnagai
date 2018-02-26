@@ -1,0 +1,27 @@
+---
+ja:
+  activerecord:
+    models:
+      user: 会員情報
+    attributes:
+      user:
+        not_db_name: 氏名
+        not_db_name_k: 氏名カナ
+        not_db_address: 住所
+        not_db_address_k: 住所カナ        
+        account_id: 会員番号
+        first_name: 姓
+        name: 名
+        first_name_k: 姓カナ
+        name_k: 名カナ
+        pref: 都道府県
+        city: 市町村
+        address: 番地/アパート名
+        post_number: 郵便番号
+        pref_k: 都道府県カナ
+        city_k: 市町村カナ
+        address_k: 番地/アパート名カナ
+        tel: 電話番号
+        mail: メールアドレス
+        birth: 誕生日
+        sex: 性別

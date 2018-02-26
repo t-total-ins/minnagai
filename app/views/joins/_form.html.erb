@@ -1,0 +1,48 @@
+  <div class="form-group">
+    <%= f.label :number_of_orders %></br>
+    <%= f.number_field :number_of_orders %>
+  </div>
+   
+  <div class="form-group">
+    <%= f.label :join_option %></br>
+    <%= f.text_area :join_option, {cols: 70, rows: 10 }  %>
+  </div>
+
+  <p>以下は、交渉を進めるときに重要な内容についてのアンケートとなります。</br>記入しなくてもプロジェクトに参加できますが、ご協力をお願い致します。</br></p>
+  <div class="form-group">
+    <%= f.label :join_attract %></br>
+    <%= f.text_area :join_attract, {cols: 70, rows: 10 } %>
+  </div>
+  
+  <div class="form-group">
+    <%= f.label :purpose %></br>
+    <label><%= f.radio_button :purpose, '買い替え' %>買い替え</label>
+    <label><%= f.radio_button :purpose, '新規購入' %>新規購入</label>
+  </div>
+
+  <p>買い替えの場合、現在お使いの商品についてお答えください。</p>
+
+  <div class="form-group">
+    <%= f.label :join_maker %>
+    <%= f.text_field :join_maker, class: 'form-control' %>
+  </div>
+      
+  <div class="form-group">
+    <%= f.label :join_product %>
+    <%= f.text_field :join_product, class: 'form-control' %>
+  </div>
+
+  <div class="form-group">
+   <%= f.hidden_field :project_id, :value => @project_id %>
+   <%= f.hidden_field :account_id, :value => current_account.id %>
+  </div>
+
+  <% if local_assigns[:edit_flag].present? %>
+    <div class="form-group">
+    <%= f.submit 'プロジェクト参加内容を変更する', class: 'btn btn-info', data: {confirm: '変更してよろしいですか?', disable_with: '更新中・・・'} %>
+    </div>
+  <% else %>
+    <div class="form-group">
+      <%= f.submit 'プロジェクトに参加する', class: 'btn btn-info', data: {confirm: '参加してよろしいですか?', disable_with: '更新中・・・'} %>
+    </div>
+  <% end %>

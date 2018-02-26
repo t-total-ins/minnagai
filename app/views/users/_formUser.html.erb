@@ -1,0 +1,74 @@
+<%= f.hidden_field :account_id, :value => current_account.id %>
+        
+<%= f.label :not_db_name %>
+<div class="form-group">
+  <%= f.label :first_name %>
+  <%= f.text_field :first_name %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+</div>
+
+<%= f.label :not_db_name_k %>
+<div class="form-group">
+  <%= f.label :first_name_k %>
+  <%= f.text_field :first_name_k %>
+  <%= f.label :name_k %>
+  <%= f.text_field :name_k %>
+</div>
+
+<div class="form-group">
+  <%= f.label :post_number %>
+  </br>7桁の番号のみで記入してください。-(ハイフン)などの記号は不要です。
+  </br>
+  <%= f.text_field :post_number, class: 'p-postal-code' %>
+</div>
+
+<%= f.label :not_db_address %>
+<div class="form-group">
+  <%= f.label :pref %>
+  </br>
+  <%= f.text_field :pref, class: 'p-region' %>
+  </br>
+  <%= f.label :city %>
+  </br>
+  <%= f.text_field :city, class: 'p-locality' %>
+  </br>
+  <%= f.label :address %>
+  </br>
+  <%= f.text_field :address, class: 'form-control p-street-address p-extended-address' %>
+</div>
+
+<div class="form-group">
+  <%= f.label :tel %>
+  番号のみ記入してください。-(ハイフン)などの記号は不要です。
+  </br>
+  <%= f.telephone_field :tel %>
+</div>
+
+<div class="form-group">
+  <%= f.label :mail %>
+  </br>
+  <%= f.email_field :mail, class: 'form-control', :value => current_account.email %>
+</div>
+
+<div class="form-group">
+  <%= f.label :birth %>
+  </br>
+  <%= f.date_field :birth %>
+</div>
+
+<div class="form-group">
+  <%= f.label :sex %></br>
+  <label><%= f.radio_button :sex, '1' %>男性</label>
+  <label><%= f.radio_button :sex, '2' %>女性</label>
+</div>
+ 
+<% if local_assigns[:edit_flag].present? %>
+  <div class="form-group">
+    <%= f.submit '会員情報を変更する', class: 'btn btn-info', data: {confirm: '変更してよろしいですか?', disable_with: '作成中・・・'} %>
+  </div>
+<% else %>
+  <div class="form-group">
+    <%= f.submit '会員情報を登録する', class: 'btn btn-info', data: {confirm: '作成してよろしいですか?', disable_with: '作成中・・・'} %>
+  </div>
+<% end %>

@@ -1,0 +1,12 @@
+---
+ja:
+  activerecord:
+    models:
+      notice: お知らせ
+    attributes:
+      notice:
+        title: タイトル
+        content: 内容
+        notice_to: 後で直す
+        notice_to_member: お知らせ対象会員
+        notice_to_project: お知らせ対象プロジェクト

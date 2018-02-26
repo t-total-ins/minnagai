@@ -1,0 +1,10 @@
+---
+ja:
+  activerecord:
+    models:
+      code: マスタコード管理
+    attributes:
+      code:
+        content: コード分類
+        content_no: コード分類No
+        description: コード詳細

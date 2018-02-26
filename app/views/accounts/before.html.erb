@@ -1,0 +1,20 @@
+<h2>マイページ</h2>
+<div class="container">
+  <div class="col-md-5">
+    <%= render 'accountSidebar', {userTorokuSumi: @user} %>
+  </div>
+  <div class="col-md-7">
+    <% if @user.exists? %>
+      <% if @project.exists? %>
+        <div class="page-header">
+          <h2>参加したプロジェクト</h2>
+        </div>
+        <%= render 'projectMenu', {project: @project} %>
+      <% else %>
+        <p>参加したプロジェクトはありません</p>
+      <% end %>
+    <% else %>
+      <b><%= render plain: '会員情報を登録しなくてもプロジェクトには参加できますが、会員情報の登録をしていないと購入手続きには進めません。ご注意ください。' %></b>
+    <% end %>
+  </div>
+</div>

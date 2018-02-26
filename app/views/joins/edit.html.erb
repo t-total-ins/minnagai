@@ -1,0 +1,6 @@
+<h2>プロジェクト参加内容変更</h2>
+
+<%= form_for(@join, url:{controller:'joins', action:'update'}, class:'form-horizontal', role: 'form') do |f| %>
+  <%= render 'errorMessage', {join: @join} %>
+  <%= render 'form', {f: f, edit_flag: true} %>
+<% end %>

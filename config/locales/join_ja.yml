@@ -1,0 +1,13 @@
+---
+ja:
+  activerecord:
+    models:
+      join: プロジェクト参加状況
+    attributes:
+      join:
+        number_of_orders: 購入希望数
+        purpose: 参加理由
+        join_maker: 今まで使っていた会社
+        join_product: 今まで使っていた商品
+        join_attract: プロジェクト対象商品の魅力
+        join_option: オプションの希望内容（色、サイズ、その他希望するオプションを記載してください）

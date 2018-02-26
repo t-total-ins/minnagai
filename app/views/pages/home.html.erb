@@ -1,0 +1,40 @@
+<div class="panel panel-info">
+
+  <div class="panel-heading">
+    <strong>みんな買いへようこそ</strong>
+  </div>
+
+  <div class="panel-body">
+    <strong><h3>みんな買い　７ヶ条</h3></strong>
+    </br></br>
+    ①　同じ商品やサービスを買いたい人が集まる<strong>プロジェクトをつくる</strong>ことができます
+    </br></br>
+    ②　プロジェクトをつくるときには、<strong>どういう条件で買いたいかを決める</strong>ことができます
+    </br></br>
+    ③　開催されている<strong>プロジェクトに参加する</strong>ことができます
+    </br></br>
+    ④　２週間のプロジェクト期間で、以下の2つの条件を両方満たせば、プロジェクト成立です
+    </br>
+    <strong>１．参加人数が100人以上</strong>
+    </br>
+    <strong>２．プロジェクト全体の購入予定金額が100万円以上</strong>
+    </br></br>
+    ⑤　成立したプロジェクトの内容に基づき、サービス運営が<strong>企業と交渉</strong>します
+    </br></br>
+    ⑥　交渉が成立すれば、プロジェクトの条件で、<strong>商品やサービスを購入する</strong>ことができます
+    </br></br>
+    ⑦　プロジェクトの購入金額以外に<strong>手数料などは一切かかりません</strong>
+  </div>
+
+</div>
+
+</br>
+<%= link_to 'プロジェクトを見てみる', projects_path, class: 'btn btn-primary btn-lg btn-block' %>
+</br>
+
+<%# ログインしていない場合、会員登録の表示%>
+<% if account_signed_in? %>
+<% else %>
+  <%= link_to '会員登録する', new_account_registration_path, class: 'btn btn-info btn-lg btn-block' %>
+<% end %>
+</br>

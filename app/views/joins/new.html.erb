@@ -1,0 +1,6 @@
+<h2>プロジェクト参加確認</h2>
+
+<%= form_for(@join, url:{controller:'joins', action:'create'}, class:'form-horizontal', role: 'form') do |f| %>
+  <%= render 'errorMessage', {join: @join} %>
+  <%= render 'form', {f: f} %>
+<% end %>

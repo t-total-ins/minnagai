@@ -1,0 +1,8 @@
+<div class="container">
+  <div class="col-md-3">
+    <%= render 'sidebar',{q: @q, project_category: @project_category} %>
+  </div>
+  <div class="col-md-9">
+    <%= render 'projectMenu', {project: @project} %>
+  </div>
+</div>

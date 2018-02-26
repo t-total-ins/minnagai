@@ -1,0 +1,25 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <b>詳しく検索してみる</b>
+  </div>
+  <div class="panel-body">
+    <%= search_form_for q do |f| %>
+      <%= f.label :project_name_cont %></br>
+      <%= f.search_field :project_name_cont, class: 'form-control' %></br>
+      <%= f.label :project_category_cont %></br>
+      <%= f.collection_select :project_category_cont, project_category, :description, :description, class: 'form-control', include_blank: true %></br>
+      <%= f.label :maker_cont %></br>
+      <%= f.search_field :maker_cont, class: 'form-control' %></br>
+      <%= f.label :product_cont %></br>
+      <%= f.search_field :product_cont, class: 'form-control' %></br>
+      <%= f.label '購入希望価格' %></br>
+      <%= f.number_field :amount_of_money_gteq, class: 'form-control' %>円以上～ </br>
+      <%= f.number_field :amount_of_money_lteq, class: 'form-control' %>円以下 </br>
+      <%= f.label 'プロジェクト開催期間' %></br>
+      <%= f.date_select :project_from_gteq, include_blank: true %> ～</br>
+      <%= f.date_select :project_to_lteq, include_blank: true %></br> 
+      </br>
+      <%= f.submit '検索する', class: 'btn btn-info btn-lg btn-block' %>
+    <% end %>
+  </div>
+</div>

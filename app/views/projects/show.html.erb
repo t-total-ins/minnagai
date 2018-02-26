@@ -1,0 +1,317 @@
+<div class="page-header">
+  <h2><%= @project.project_name %></h2>
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <%= link_to image_tag(@project.image1, alt: "画像はありません",
+                            class: "img-responsive",
+                            data: { toggle: "modal", target: "#myModal" }),
+                            "#projectＩmage", data: { slide_to: "0" } %>
+
+      <div class="container">
+        <div class="row">
+          <div class="col-md-1">
+            <%= link_to image_tag(@project.image2, alt: "画像はありません",
+                            class: "img-responsive",
+                            data: { toggle: "modal", target: "#myModal" }),
+                            "#projectＩmage", data: { slide_to: "1" } %>
+          </div>
+
+          <div class="col-md-1">
+            <%= link_to image_tag(@project.image3, alt: "画像はありません",
+                            class: "img-responsive",
+                            data: { toggle: "modal", target: "#myModal" }),
+                            "#projectＩmage", data: { slide_to: "2" } %>
+          </div>
+
+          <div class="col-md-1">
+            <%= link_to image_tag(@project.image4, alt: "画像はありません",
+                            class: "img-responsive",
+                            data: { toggle: "modal", target: "#myModal" }),
+                            "#projectＩmage", data: { slide_to: "3" } %>
+          </div>
+
+          <div class="col-md-1">
+            <%= link_to image_tag(@project.image5, alt: "画像はありません",
+                            class: "img-responsive",
+                            data: { toggle: "modal", target: "#myModal" }),
+                            "#projectＩmage", data: { slide_to: "4" } %>
+          </div>
+        </div><%#div class="row"%>
+      </div><%#div class="container"%>
+    </div><%#div class="col-md-6"%>
+    
+  <div class="modal fade" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+              <div class="pull-left"><h4>プロジェクト画像詳細</h4></div>
+                <button type="button" class="close" data-dismiss="modal" title="Close">
+                  <span class="glyphicon glyphicon-remove"></span>
+                </button>
+            </div>
+      <div class="modal-body">
+      <%#CAROUSEL CODE GOES HERE%>
+      <div id="projectＩmage" class="carousel slide" data-interval="false">
+        <div class="carousel-inner">
+
+          <div class="item active">
+            <%= image_tag(@project.image1,
+                          alt: "画像はありません",
+                          class: "img-responsive") %>
+              <div class="carousel-caption">
+                <h3>プロジェクト画像1</h3>
+              </div>
+          </div>
+          <div class="item">
+            <%= image_tag(@project.image2,
+                          alt: "画像はありません",
+                          class: "img-respponsive") %>
+              <div class="carousel-caption">
+                <h3>プロジェクト画像2</h3>
+              </div>
+          </div>
+          <div class="item">
+            <%= image_tag(@project.image3,
+                          alt: "画像はありません",
+                          class: "img-respponsive") %>
+              <div class="carousel-caption">
+                <h3>プロジェクト画像3</h3>
+              </div>
+          </div>
+          <div class="item">
+            <%= image_tag(@project.image4,
+                          alt: "画像はありません",
+                          class: "img-respponsive") %>
+              <div class="carousel-caption">
+                <h3>プロジェクト画像4</h3>
+              </div>
+          </div>
+          <div class="item">
+            <%= image_tag(@project.image5,
+                          alt: "画像はありません",
+                          class: "img-respponsive") %>
+              <div class="carousel-caption">
+                <h3>プロジェクト画像5</h3>
+              </div>
+          </div>
+        </div><%#end carousel-inner%>
+          <%# Previous and Next buttons%>
+          <a class="left carousel-control" href="#projectＩmage" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span></a> <a class="right carousel-control"
+            href="#projectＩmage" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+          </a>
+        </div><%# projectＩmage%>
+      </div><%# modal-body%>
+          <div class="modal-footer">
+          <div class="pull-left">
+          </div>
+            <button class="btn-sm close" type="button" data-dismiss="modal">閉じる</button>
+        </div><%# modal-footer%>
+      </div><%# modal-content%>
+    </div><%# modal-dialoge%>
+  </div><%# myModal%>
+
+    <div class="col-md-6">
+     <%# プロジェクト開催中の場合 %>
+     <% if @project.project_to > Time.now %>
+      <%# ログイン状態の場合 %>
+      <% if account_signed_in? %>
+        
+        <%# プロジェクトに参加している場合 %>
+        <% @participate = @join.where('account_id = ?', current_account.id) %>
+        <% if @participate.exists? %>
+          <% @participate.each do |p| %>
+            <%= link_to 'プロジェクト参加内容を変更する', edit_project_join_path(@project, p.id), class: 'btn btn-info' %></br></br>
+            <%= link_to 'プロジェクトの参加を取り消す', project_join_path(@project, p.id), method: :delete, class: 'btn btn-warning', data: {confirm: '参加を取り消しますか？'} %></br></br>
+          <% end %>
+        <% else %>
+          <%= link_to 'プロジェクトに参加する', new_project_join_path(@project),  class: 'btn btn-info' %></br></br>
+        <% end %>
+        
+
+        <%# プロジェクトをつくったアカウントの場合、編集可能 %>
+        <% if @project.created_by?(current_account) %>
+          <%= link_to 'プロジェクトに追記する', new_project_question_path(@project), class: 'btn btn-primary' %></br></br>
+        <%# プロジェクトをつくったアカウントではない場合、質問可能 %>
+        <% else %>
+          <%= link_to 'プロジェクトに質問する', new_project_question_path(@project), class: 'btn btn-primary' %></br></br>
+        <% end %>
+
+      <%# ログイン状態の場合 end%>  
+      <% end %>
+
+
+      <%# プロジェクト達成条件を満たした場合 %>
+      <% if @now_joiner <= 0 && @now_money <= 0 %>  
+        <b>このプロジェクトは、成立しました</b></br></br>
+      <% elsif @now_joiner <= 0 && @now_money > 0 %>
+          <b>参加人数は、プロジェクト成立条件を満たしています。</b></br>
+          <b>プロジェクト参加人数：<%= @project_joiner %>人</b></br></br>
+          <b>プロジェクト購入金額の合計：<%= number_with_delimiter(@project_money, delimiter:",") %>円</b></br>
+          <b>プロジェクト達成まであと<%= number_with_delimiter(@now_money, delimiter:",") %>円</b></br></br>
+      <% elsif @now_joiner > 0 && @now_money <= 0 %>
+          <b>プロジェクト参加人数：<%= @project_joiner %>人</b></br>
+          <b>プロジェクト達成まであと<%= @now_joiner %>人</b></br></br>
+          <b>プロジェクト購入金額の合計は、プロジェクト成立条件を満たしています。</b></br>
+          <b>プロジェクト購入金額の合計：<%= number_with_delimiter(@project_money, delimiter:",") %>円</b></br></br>
+      <% else %>
+          <b>プロジェクト参加人数：<%= @project_joiner %>人</b></br>
+          <b>プロジェクト達成まであと<%= @now_joiner %>人</b></br></br>
+          <b>プロジェクト購入金額の合計：<%= number_with_delimiter(@project_money, delimiter:",") %>円</b></br>
+          <b>プロジェクト達成まであと<%= number_with_delimiter(@now_money, delimiter:",") %>円</b></br></br>
+      <% end %>
+
+    <%#プロジェクト終了済み%>
+    <% else %>
+      <%# ログイン状態の場合、かつ、プロジェクトのステータスが5　支払い期間中の場合 %>
+      <% if account_signed_in? && @project.status == 6 %><%# TODO: statusは変数で持たせる @project_status%>
+        <%# かつ、プロジェクトに参加している場合 %>
+        <% @participate = @join.where('account_id = ?', current_account.id) %>
+        <% if @participate.exists? %>
+
+          <%# 購入手続き済の場合%>
+          <% if current_account.purchases.exists? %>
+            <b>購入手続きは完了しています。</br>商品発送まで、しばらくお待ちください。</b>
+          <% else %><%# 購入手続き未済の場合%>
+            <b>交渉が成立しました</b></br>
+            <b>購入手続きに進むボタンより、購入手続きを行ってください</b></br>
+            <%= link_to '購入手続きに進む', project_purchases_detail_path(@project), class: 'btn btn-primary btn-lg btn-block' %></br>
+          <% end %><%# 購入手続き済の場合%>
+
+        <% end %><%# プロジェクトに参加している場合 %>
+      <% end %><%# ログイン状態の場合、かつ、プロジェクトのステータスが5　支払い期間中の場合 %>
+        
+      <% if @now_joiner <= 0 && @now_money <= 0 %>
+        <b>プロジェクトは成立しました</b></br>
+      <% else %>
+        <b>プロジェクトは成立しませんでした</b></br>
+      <% end %>
+    <% end %>
+    <%#プロジェクト終了済みend%>
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          購入希望価格（税込）
+        </div>
+  　　    <div class="panel-body">
+  　　　　　  <%= number_with_delimiter(@project.amount_of_money, delimiter:",") %>　円 
+  　　    </div>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          プロジェクト期間
+        </div>
+        <div class="panel-body">
+          <%= @project.project_from.strftime("%Y/%m/%d %H:%M") %> - <%= @project.project_to.strftime("%Y/%m/%d %H:%M") %>
+        </div>
+      </div>
+    </div><%#div class="col-md-6"%>
+  </div><%#class="row"%>
+</div><%#class="container"%>
+
+</br>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    メーカー
+  </div>
+  <div class="panel-body">
+    <%= @project.maker %>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <%#= @project.project_category %>
+    商品/サービス名
+  </div>
+  <div class="panel-body">
+    <%= @project.product %>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    オプション
+  </div>
+  <div class="panel-body">
+  　　<%= simple_format(h @project.option) %>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    商品の魅力
+  </div>
+  <div class="panel-body">
+    <%= simple_format(h @project.attraction) %>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    プロジェクト開催理由
+  </div>
+  <div class="panel-body">
+    <%= simple_format(h @project.reason) %>
+  </div>
+</div>
+
+<%
+=begin
+%>
+一括前払い、配送でいったんサービスは統一。
+のちのち、分割払い、店舗受け取りとかも追加。
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    購入方法
+  </div>
+  <div class="panel-body">
+    <%= @project.way_of_purchase %>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    支払い方法
+  </div>
+  <div class="panel-body">
+    <%= @project.way_of_payment %>
+  </div>
+</div>
+<%
+=end
+%>
+
+
+<%#TODO: 追記機能を追加 %>
+<% if @question.exists? %>
+  <% @question.each do |q| %>
+    <% if q.q_and_a == 'a' %>
+      <p class="text-left">プロジェクト追記（ <%= q.created_at.strftime("%Y/%m/%d %H:%M") %> ) </p>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <%= simple_format(h q.title) %>
+        </div>
+        <div class="panel-body">
+          <%= simple_format(h q.content) %>
+        </div>
+      </div>
+    <% else %>
+      <p class="text-right">プロジェクトへの質問( <%= q.created_at.strftime("%Y/%m/%d %H:%M") %> ) </p>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <div class="text-right"><%= simple_format(h q.title) %></div>
+        </div>
+        <div class="panel-body">
+          <div class="text-right"><%= simple_format(h q.content) %></div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>

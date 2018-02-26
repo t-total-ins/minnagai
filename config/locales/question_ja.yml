@@ -1,0 +1,12 @@
+---
+ja:
+  activerecord:
+    models:
+      question: プロジェクト質問OR追記
+    attributes:
+      question:
+        project_id: プロジェクト外部キー
+        account_id: アカウント外部キー
+        q_and_a: 質問OR追記
+        title: タイトル
+        content: 内容

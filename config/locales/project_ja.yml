@@ -1,0 +1,25 @@
+---
+ja:
+  activerecord:
+    models:
+      project: "プロジェクト"
+    attributes:
+      project:
+        member_no: 会員番号
+        project_name:  プロジェクト名
+        project_category: プロジェクト分類
+        maker: メーカー
+        product: 商品名
+        option:  オプションの扱い（色、サイズ、スペック、型落ちなど、オプションがある場合、どうするか記載をしてください）
+        image1:  登録画像1
+        image2:  登録画像2
+        image3:  登録画像3
+        image4:  登録画像4
+        image5:  登録画像5
+        attraction:  商品の魅力
+        reason:  プロジェクトの開催理由
+        amount_of_money: 購入希望価格（消費税込、配送料込、一括払いでの希望価格となります）
+        way_of_purchase: 購入方法　（自宅へ配送、お店で受け取り）
+        way_of_payment:  分割払いの有無　（原則1回払いでお願いします）
+        project_from:  プロジェクト開始日
+        project_to:  プロジェクト終了日

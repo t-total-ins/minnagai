@@ -1,0 +1,14 @@
+---
+ja:
+  activerecord:
+    models:
+      purchase: 購入内容
+    attributes:
+      purchase:
+        project_id: プロジェクト外部キー
+        account_id: アカウント外部キー
+        number_of_orders: 購入数
+        total_amount: 支払総額
+        due_date: 支払期限
+        payment_flg: 支払済フラグ
+        delivery_flg: 配送済フラグ

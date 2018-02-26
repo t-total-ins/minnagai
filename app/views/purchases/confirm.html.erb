@@ -1,0 +1,62 @@
+<div class="page-header">
+  <h2>購入内容確認</h2>
+</div>
+
+<h4>以下の内容で購入内容を確定します。</h4>
+
+<div class="container">
+  <div class="col-md-8">
+    メーカー： <%= @project.maker %>
+    </br>
+    対象商品： <%= @project.product %>
+    </br>
+    値段： <%= number_with_delimiter(@project.amount_of_money, delimiter:",") %>
+    </br>
+    <% @number_of_orders.each do |o| %>
+      購入数： <%= o.number_of_orders %>
+      </br>
+      </br>
+      <% total = o.number_of_orders * @project.amount_of_money %>
+      <h3>支払総額： <%= number_with_delimiter(total, delimiter:",") %> 円</h3>
+    <% end %>
+    </br>
+    </br>
+    商品送付先郵便番号： <%= current_account.user.post_number %>
+    </br>
+    商品送付先住所： <%= current_account.user.pref %><%= current_account.user.city %> <%= current_account.user.address %>
+    </br>
+    商品送付先氏名： <%= current_account.user.first_name %> <%= current_account.user.name %>
+    </br>
+    配送時連絡先： <%= current_account.user.tel %>
+    </br>
+    </br>
+  </div><%#col-md-8%>
+  <div class="col-md-4">
+
+    <%= form_for(@purchase, url:{controller:'purchases', action:'complete'}, class:'form-horizontal', role: 'form') do |f| %>
+      <% if @purchase.errors.any? %>
+        <div class="alert alert-danger">
+          <ul>
+          <% @project.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="form-group">
+        <%= f.hidden_field :project_id, :value => @project.id %>
+        <%= f.hidden_field :account_id, :value => current_account.id %>
+        <% @number_of_orders.each do |o| %>
+          <%= f.hidden_field :number_of_orders, :value => o.number_of_orders %>
+          <%= f.hidden_field :total_amount, :value => o.number_of_orders * @project.amount_of_money %>
+        <% end %>
+        <%= f.hidden_field :due_date, :value => (Time.now + 60 * 60 * 24 * 14).strftime("%Y/%m/%d %H:%M:%S") %>
+      </div>
+
+      <div class="form-group">
+        <%= f.submit '購入する', class: 'btn btn-info btn-lg btn-block', data: {confirm: '購入内容を確定します。よろしいですか？', disable_with: '確定中・・・'} %>
+      </div>
+    <% end %><%#form_for%>
+  </div><%#col-md-4%>
+</div><%#div class="container"%>

@@ -1,0 +1,48 @@
+<%# プロジェクト投稿者の場合%>
+<% if @project.account_id == current_account.id %>
+  <h2>プロジェクトに追記する</h2>
+<% else %>
+  <h2>プロジェクトについて質問する</h2>
+<% end %>
+
+<%= form_for(@question, url:{controller:'questions', action:'create'}, class:'form-horizontal', role: 'form') do |f| %>
+
+  <% if @question.errors.any? %>
+    <div class="alert alert-danger">
+      <ul>
+      <% @question.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :title %></br>
+    <%= f.text_area :title, {cols: 70, rows: 2} %>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :content %></br>
+    <%= f.text_area :content, {cols: 70, rows: 10} %>
+  </div>
+  <div class="form-group">
+  <%= f.hidden_field :project_id, :value => @project.id %>
+  <%= f.hidden_field :account_id, :value => current_account.id %>
+    <%# プロジェクト投稿者の場合、a %>
+    <% if @project.account_id == current_account.id %>
+      <%= f.hidden_field :q_and_a, :value => 'a' %>
+    <% else %>
+      <%= f.hidden_field :q_and_a, :value => 'q' %>
+    <% end %>
+  </div>
+
+  <div class="form-group">
+    <%# プロジェクト投稿者の場合%>
+    <% if @project.account_id == current_account.id %>
+      <%= f.submit 'プロジェクトに追記する', class: 'btn btn-info', data: {confirm: '投稿してよろしいですか?', disable_with: '作成中・・・'} %>
+    <% else %>
+      <%= f.submit 'プロジェクトについて質問する', class: 'btn btn-info', data: {confirm: '投稿してよろしいですか?', disable_with: '作成中・・・'} %>
+    <% end %>
+  </div>
+<% end %>

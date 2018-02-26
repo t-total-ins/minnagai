@@ -1,0 +1,19 @@
+<%# if @notice.to_user = current_account.user.id || @notice.to_user = nil %>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h2><%= @notice.title %></h2>
+      お知らせ日時：<%= @notice.created_at.strftime("%Y/%m/%d %H:%M") %>
+    </div>
+    <div class="panel-body">
+      <%= simple_format(h @notice.content) %>
+    </div>
+  </div>
+<%
+=begin
+%>
+<% else %>
+  お知らせはありません
+<% end %>
+<%
+=end
+%>

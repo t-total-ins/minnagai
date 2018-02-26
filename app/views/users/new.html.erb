@@ -1,0 +1,9 @@
+<div class="page-header">
+  <h2>会員情報登録</h2>  
+</div>
+
+<%= form_for(@user, url:{controller:'users', action:'create'}, html: { class: 'h-adr' }, role: 'form') do |f| %>
+  <span class="p-country-name" style="display:none;">Japan</span>
+  <%= render 'errorMessageUser', {user: @user} %>
+  <%= render 'formUser', {f: f} %>
+<% end %>
